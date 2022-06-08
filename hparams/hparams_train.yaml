@@ -33,7 +33,7 @@ tokenizer_file: speechbrain/asr-transformer-aishell/tokenizer.ckpt
 
 # Training parameters
 number_of_epochs: 100 
-#Because the pretrained model end at 50 epoch, the fintuned model will train (number_of_epochs - 50) epochs.
+#Because the pretrained model end at 50 epoch, the model will fintune (number_of_epochs - 50) epochs.
 batch_size: 8
 ctc_weight: 0.3
 gradient_accumulation: 4
