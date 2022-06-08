@@ -12,10 +12,10 @@ Original github link: https://huggingface.co/speechbrain/asr-transformer-aishell
 
 ## data preprocessing
 
-Prepare the train.csv, dev.csv, and test.csv
-Header: ID,                duration,                wav,             transcript
-       (index of the file, duration of the wavfile, path to wavfile, ground-truth content)
-example:
+Prepare the train.csv, dev.csv, and test.csv 
+Header: ID,                duration,                wav,             transcript 
+       (index of the file, duration of the wavfile, path to wavfile, ground-truth content) 
+example: 
 ```
 ID,duration,wav,transcript
 0,3.12,data/test/A_1_17_F.wav,跑遍 每 个 剧组 的 庆功宴
@@ -24,23 +24,24 @@ ID,duration,wav,transcript
 3,1.9620861678004535,data/test/A_1_18_M.wav,不 排除 是 游客临时 起意
 ``` 
 
-#### Calculate the duration of utterances:
+#### Calculate the duration of utterances: 
 ```
 import librosa
 duration = librosa.get_duration(filename=/path/to/wavfile)
 ```
 
-#### Chinese word segmentation
+#### Chinese word segmentation 
 ```
 from ckiptagger import data_utils, construct_dictionary, WS
 ws = WS("/path/to/ckip/data_dir")
 transcript = ws([transcript])[0]
 
 ```
-ckiptagger: [Github](https://github.com/ckiplab/ckiptagger)
+ckiptagger: [Github](https://github.com/ckiplab/ckiptagger) 
 
 
-#### Convert traditional Chinese to simplified Chinese 
+#### Convert traditional Chinese to simplified Chinese  
+
 ```
 import opencc
 converter = opencc.OpenCC('t2s.json')
