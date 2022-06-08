@@ -12,10 +12,10 @@ Link to huggingface: https://huggingface.co/speechbrain/asr-transformer-aishell
 
 ## data preprocessing
 
-Prepare the train.csv, dev.csv, and test.csv 
-Header: ID,                duration,                wav,             transcript 
-       (index of the file, duration of the wavfile, path to wavfile, ground-truth content) 
-example: 
+Prepare the train.csv, dev.csv, and test.csv  
+Header: ID,                duration,                wav,             transcript  
+       (index of the file, duration of the wavfile, path to wavfile, ground-truth content)  
+example:  
 ```
 ID,duration,wav,transcript
 0,3.12,data/test/A_1_17_F.wav,跑遍 每 个 剧组 的 庆功宴
