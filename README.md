@@ -33,6 +33,7 @@ duration = librosa.get_duration(filename=/path/to/wavfile)
 #### Chinese word segmentation 
 ```
 from ckiptagger import data_utils, construct_dictionary, WS
+transcript = '要斷詞的句子'
 ws = WS("/path/to/ckip/data_dir")
 transcript = ws([transcript])[0]
 
@@ -45,6 +46,7 @@ ckiptagger: [Github](https://github.com/ckiplab/ckiptagger)
 ```
 import opencc
 converter = opencc.OpenCC('t2s.json')
+transcript = '要轉成簡體的句子'
 transcript = converter.convert(transcript)
 ```
 
