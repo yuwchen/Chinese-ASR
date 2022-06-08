@@ -1,6 +1,6 @@
 # Chinese-ASR
 
-This repository is a step-by-step tutorial of finetuning the pretrained Chinese ASR model from speechbrain on your own dataset.  
+This repository is describe how to finetune the pretrained Chinese ASR model from speechbrain on your own dataset.  
 Link to huggingface: https://huggingface.co/speechbrain/asr-transformer-aishell
 
 
