@@ -54,30 +54,32 @@ opencc: [Github](https://github.com/BYVoid/OpenCC)
 
 ### Step 2: Put your data in the "data" folder
 
-. The file path should match the one in .csv files
-. If you want to put the data in other folder, you need to edit the hparams.yaml files
+. The file path should match the one in the .csv file  
+. If you want to put the data in other folder, you need to edit the hparams.yaml files 
 
 ```
-# hparams_train.yaml & hparams_test.yaml
-line 23: data_folder: !ref data  # change the "data" to your folder name
+# hparams/hparams_train.yaml & hparams/hparams_test.yaml
+
+line 23: data_folder: !ref data  # change the "data" to your folder path
 
 ```
 
 
 ## Finetuning
 
-### Step 1: Download the pretrained ASR model
+### Step 1: Download the pretrained ASR model 
 
 | LinkA (original author) | LinkB | 
 |:------:|:------:| 
 |[google drive](https://drive.google.com/drive/folders/1noVw2hCwMIEt6Ovn4wt6DvrxqB2tT-Q1?usp=sharing)|google drive|
 
-. Save the download model (CKPT+2021-04-20+23-20-18+00 and tokenizer.ckpt) in the **output/model** folder
+. Save the downloaded model (CKPT+2021-04-20+23-20-18+00 and tokenizer.ckpt) in the **output/model** folder  
 
-. If you want to save the model in other folder, you need to edit the hparams.yaml files
+. If you want to save the model in other folder, you need to edit the hparams.yaml files  
 
 ```
-# hparams_train.yaml & hparams_test.yaml
+# hparams/hparams_train.yaml & hparams/hparams_test.yaml
+
 line 15: output_folder: !ref output                   # change the "output" to your folder name
 line 19: save_folder: !ref <output_folder>/model      # the code will load the model in "output/model" folder
 
@@ -85,10 +87,11 @@ line 19: save_folder: !ref <output_folder>/model      # the code will load the m
 
 . If you don't put the pretrained model, the model will train from scratch. 
 
-### Step 2: Edit the training parametes
+### Step 2: Edit the training parameters
 
 ```
-# hparams_train.yaml
+# hparams/hparams_train.yaml
+
 Line 35: number_of_epochs: 100 
 # Because the pretrained model end at 50 epoch, the model will fintune (number_of_epochs - 50) epochs (e.g. 50 epochs.)
 # If you train from scratch (i.e. didn't put the pretrained mdoel in the model folder), the model will train 100 epochs.
@@ -105,7 +108,7 @@ python train.py hparams/hparams_train.yaml --train_data=data/train.csv --valid_d
 . If you want to save the prediciton in other fils, you need to edit the hparams.yaml  
 
 ```
-# hparams_train.yaml
+# hparams/hparams_train.yaml
 Line 17: cer_file: !ref <output_folder>/predicted.txt # change <output_folder>/predicted.txt to the desired output file path
 ```
 
@@ -116,7 +119,7 @@ Run ASR using the model described in the hparams_test.yaml (e.g. the model in ou
 ```
 python test.py hparams/hparams_test.yaml --test_data=data/test.csv
 
-# hparams_test.yaml
+# hparams/hparams_test.yaml
 Line 15: output_folder: !ref output
 Line 19: save_folder: !ref <output_folder>/model
 ```
