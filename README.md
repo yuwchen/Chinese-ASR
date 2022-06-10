@@ -50,6 +50,7 @@ converter = opencc.OpenCC('t2s.json')
 transcript = '要轉成簡體的句子'
 transcript = converter.convert(transcript)
 ```
+opencc: [Github](https://github.com/BYVoid/OpenCC) 
 
 ### Step 2: Put your data in the "data" folder
 
