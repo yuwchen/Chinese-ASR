@@ -1,18 +1,16 @@
 # Chinese-ASR
 
-This repository is describe how to finetune the pretrained Chinese ASR model from speechbrain on your own dataset.  
+This repository describe how to finetune the pretrained Chinese ASR model from speechbrain on your own dataset.  
 Link to huggingface: https://huggingface.co/speechbrain/asr-transformer-aishell
 
 
-## Download the pretrained ASR model
-| LinkA (original author) | LinkB | 
-|:------:|:------:| 
-|[google drive](https://drive.google.com/drive/folders/1noVw2hCwMIEt6Ovn4wt6DvrxqB2tT-Q1?usp=sharing)|google drive|
 
+## Prepare your data
 
-## data preprocessing
+### Step 1: Prepare the train.csv, dev.csv, and test.csv  
 
-Prepare the train.csv, dev.csv, and test.csv  
+The train.csv, dev.csv, and test.csv need to be in the following format:  
+
 Header: ID,                duration,                wav,             transcript  
        (index of the file, duration of the wavfile, path to wavfile, ground-truth content)  
 example:  
@@ -53,9 +51,71 @@ transcript = '要轉成簡體的句子'
 transcript = converter.convert(transcript)
 ```
 
+### Step 2: Put your data in the "data" folder
+
+. The file path should match the one in .csv files
+. If you want to put the data in other folder, you need to edit the hparams.yaml files
+
+```
+# hparams_train.yaml & hparams_test.yaml
+line 23: data_folder: !ref data  # change the "data" to your folder name
+
+```
+
 
 ## Finetuning
 
+### Step 1: Download the pretrained ASR model
 
+| LinkA (original author) | LinkB | 
+|:------:|:------:| 
+|[google drive](https://drive.google.com/drive/folders/1noVw2hCwMIEt6Ovn4wt6DvrxqB2tT-Q1?usp=sharing)|google drive|
 
-## Inferences
+. Save the download model (CKPT+2021-04-20+23-20-18+00 and tokenizer.ckpt) in the **output/model** folder
+
+. If you want to save the model in other folder, you need to edit the hparams.yaml files
+
+```
+# hparams_train.yaml & hparams_test.yaml
+line 15: output_folder: !ref output                   # change the "output" to your folder name
+line 19: save_folder: !ref <output_folder>/model      # the code will load the model in "output/model" folder
+
+```
+
+. If you don't put the pretrained model, the model will train from scratch. 
+
+### Step 2: Edit the training parametes
+
+```
+# hparams_train.yaml
+Line 35: number_of_epochs: 100 
+# Because the pretrained model end at 50 epoch, the model will fintune (number_of_epochs - 50) epochs (e.g. 50 epochs.)
+# If you train from scratch (i.e. didn't put the pretrained mdoel in the model folder), the model will train 100 epochs.
+
+```
+
+### Step 3: Run the code
+
+```
+python train.py hparams/hparams_train.yaml --train_data=data/train.csv --valid_data=data/dev.csv --test_data=data/test.csv
+```
+. The finetuned model will be save in the output/model folder  
+. The predicted results of testing data will be save in the output/predicted.txt  
+. If you want to save the prediciton in other fils, you need to edit the hparams.yaml  
+
+```
+# hparams_train.yaml
+Line 17: cer_file: !ref <output_folder>/predicted.txt # change <output_folder>/predicted.txt to the desired output file path
+```
+
+## Inferences  
+
+Run ASR using the model described in the hparams_test.yaml (e.g. the model in output/model):  
+
+```
+python test.py hparams/hparams_test.yaml --test_data=data/test.csv
+
+# hparams_test.yaml
+Line 15: output_folder: !ref output
+Line 19: save_folder: !ref <output_folder>/model
+```
