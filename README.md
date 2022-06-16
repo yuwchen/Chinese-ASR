@@ -50,7 +50,10 @@ converter = opencc.OpenCC('t2s.json')
 transcript = '要轉成簡體的句子'
 transcript = converter.convert(transcript)
 ```
-opencc: [Github](https://github.com/BYVoid/OpenCC) 
+opencc: [Github](https://github.com/BYVoid/OpenCC)  
+Note: the pretrained AISHELL model is trained on simplified Chinese.  
+You can use opencc.OpenCC('s2t.json') to convert traditional Chinese back to simplified Chinese.
+
 
 ### Step 2: Put your data in the "data" folder
 
