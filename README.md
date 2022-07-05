@@ -54,6 +54,17 @@ opencc: [Github](https://github.com/BYVoid/OpenCC)
 Note: the pretrained AISHELL model is trained on simplified Chinese.  
 You can use opencc.OpenCC('s2t.json') to convert traditional Chinese back to simplified Chinese.
 
+#### Resample the wave file if it's not 16kHz
+
+```
+import librosa
+from scipy.io import wavfile
+
+wav, _ = librosa.load("/path/to/your/wavefile.wav", sr=16000)
+wavfile.write("/path/to/output/wavefile.wav", 16000, wav)
+
+```
+
 
 ### Step 2: Put your data in the "data" folder
 
